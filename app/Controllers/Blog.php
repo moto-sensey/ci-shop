@@ -8,11 +8,16 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Blog extends BaseController
 {
-
+    public $model;
+    
+    public function __construct()
+    {
+        $this->model = new BlogModel();
+    }
+    
     public function index()
     {
-        $blogModel = new BlogModel();
-        $posts = $blogModel->findAll();
+        $posts = $this->model->findAll();
         
         $data = [
             'title' => 'Блог',
@@ -23,8 +28,7 @@ class Blog extends BaseController
 
     public function view($id)
     {
-        $blogModel = new BlogModel();
-        $post = $blogModel->find($id);
+        $post = $this->model->find($id);
         
         if(!$post){
             throw PageNotFoundException::forPageNotFound();
@@ -49,8 +53,7 @@ class Blog extends BaseController
     public function store()
     {
         $data = $this->request->getPost();
-        $blogModel = new BlogModel();
-        $blogModel->insert($data);
+        $this->model->insert($data);
 
         return redirect('blog_create');
     }
