@@ -55,7 +55,34 @@ class Blog extends BaseController
         $data = $this->request->getPost();
         $this->model->insert($data);
 
-        return redirect('blog_create');
+        return redirect('post_create');
+    }
+
+    public function edit($id)
+    {
+        $post = $this->model->find($id);
+        
+        $data = [
+            'title' => "Edit post {$post['title']}",
+            'post' => $post
+        ];
+
+        return view('blog/edit', $data);
+    }
+
+    public function update($id)
+    {
+        $data = $this->request->getPost();
+        $this->model->update($id, $data);
+
+        return redirect()->route('post_edit', [$id]);
+    }
+
+    public function delete($id)
+    {
+        $this->model->delete($id);
+
+        return redirect('blog');
     }
 
 }

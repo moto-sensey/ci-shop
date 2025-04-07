@@ -15,8 +15,15 @@ class BlogModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['title', 'excerpt', 'content', 'created_at', 'updated_at', 'deleted_at'];
+    protected $allowedFields = ['title', 'excerpt', 'content'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
+
+    protected $useTimestamps = true;
+    protected $dateFormat    = 'datetime';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $deletedField  = 'deleted_at';
+
 }
